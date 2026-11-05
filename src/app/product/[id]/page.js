@@ -3,15 +3,15 @@ import Image from "next/image";
 
 const ProductId = async ({ params }) => {
 	const paramsResponse = await params;
-	const data = await getProductById(paramsResponse.id)
+	const data = await getProductById(paramsResponse.id);
 
-	if(!data){
-		return <h1 className="not-found">Ova stranica ne postoji</h1>
+	if (!data) {
+		return <h1 className="not-found">This page doesn't exist</h1>;
 	}
 	return (
 		<main className="product-page">
 			<a href="/" className="back-link">
-				← Nazad na proizvode
+				← Back To Products
 			</a>
 
 			<div className="product-top">
@@ -44,7 +44,6 @@ const ProductId = async ({ params }) => {
 						<span className="badge">{data.availabilityStatus}</span>
 						<span>Na stanju: {data.stock}</span>
 					</div>
-
 				</div>
 			</div>
 		</main>

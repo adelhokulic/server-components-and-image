@@ -1,365 +1,490 @@
 :root {
-  --background: #f5f6f8;
-  --foreground: #171717;
-  --muted: #5b6270;
-  --card: #ffffff;
-  --image-bg: #f0f1f4;
-  --border: #e3e5ea;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --price: #1d4ed8;
+	--background: #f5f6f8;
+	--foreground: #171717;
+	--muted: #5b6270;
+	--card: #ffffff;
+	--image-bg: #f0f1f4;
+	--border: #e3e5ea;
+	--accent: #2563eb;
+	--accent-hover: #1d4ed8;
+	--price: #1d4ed8;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted: #a3a9b5;
-    --card: #16181d;
-    --image-bg: #22252c;
-    --border: #2a2d35;
-    --price: #7aa7ff;
-  }
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+		--muted: #a3a9b5;
+		--card: #16181d;
+		--image-bg: #22252c;
+		--border: #2a2d35;
+		--price: #7aa7ff;
+	}
 }
 
 html {
-  height: 100%;
+	height: 100%;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	color: var(--foreground);
+	background: var(--background);
+	font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+	html {
+		color-scheme: dark;
+	}
 }
 
 /* Naslov stranice */
 h1 {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 8px 16px 16px;
-  font-size: 2rem;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 8px 16px 16px;
+	font-size: 2rem;
 }
 
 /* Pretraga: polje je centrirano unutar forme */
 .search-bar {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px 16px;
 }
 
 .search-input {
-  width: 100%;
-  max-width: 480px;
-  padding: 12px 16px;
-  color: var(--foreground);
-  font: inherit;
-  text-align: center;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+	width: 100%;
+	max-width: 480px;
+	padding: 12px 16px;
+	color: var(--foreground);
+	font: inherit;
+	text-align: center;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 8px;
 }
 
 .search-input::placeholder {
-  color: var(--muted);
+	color: var(--muted);
 }
 
 .search-input:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+	outline: 2px solid var(--accent);
+	outline-offset: 1px;
+}
+
+/* Dugme za dodavanje: desno, u istom redu kao naslov, pa naslov ostaje
+   na istom mjestu kao u rezultatima pretrage */
+.add-product-btn {
+	position: relative;
+	z-index: 1;
+	align-self: flex-end;
+	margin: 8px max(16px, calc((100% - 1200px) / 2 + 16px)) -49px 0;
+	padding: 10px 16px;
+	color: #ffffff;
+	font-weight: 600;
+	background: var(--accent);
+	border-radius: 8px;
+	transition: background 0.2s ease;
+}
+
+.add-product-btn:hover {
+	background: var(--accent-hover);
+}
+
+.add-product-btn:focus-visible {
+	outline: 2px solid var(--foreground);
+	outline-offset: 2px;
+}
+
+/* Vrlo uski ekrani: nema mjesta pored naslova, pa dugme ide iznad njega */
+@media (max-width: 359px) {
+	.add-product-btn {
+		margin-bottom: 0;
+	}
 }
 
 /* Mreža proizvoda: mobile first, prvo jedna kolona */
 .products {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px 48px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 16px 48px;
 }
 
 /* Kartica proizvoda */
 .product {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 16px;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 }
 
 .product:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+	transform: translateY(-4px);
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* order: -1 vizuelno pomjera sliku na vrh kartice */
 .product img {
-  order: -1;
-  width: 100%;
-  height: 220px;
-  object-fit: contain;
-  background: var(--image-bg);
-  border-radius: 8px;
+	order: -1;
+	width: 100%;
+	height: 220px;
+	object-fit: contain;
+	background: var(--image-bg);
+	border-radius: 8px;
 }
 
 /* Naslov uvijek zauzima tačno 2 reda: 2 x 1.3 = 2.6em */
 .product h2 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-  min-height: 2.6em;
-  font-size: 1.15rem;
-  line-height: 1.3;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+	min-height: 2.6em;
+	font-size: 1.15rem;
+	line-height: 1.3;
 }
 
 /* Opis uvijek zauzima tačno 3 reda: 3 x 1.5 = 4.5em, višak postaje "..." */
 .product p:not(.price) {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  overflow: hidden;
-  min-height: 4.5em;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	overflow: hidden;
+	min-height: 4.5em;
+	color: var(--muted);
+	font-size: 0.95rem;
+	line-height: 1.5;
 }
 
 /* margin-top: auto gura cijenu na dno, odmah iznad dugmeta */
 .product .price {
-  margin-top: auto;
-  color: var(--price);
-  font-size: 1.25rem;
-  font-weight: 700;
+	margin-top: auto;
+	color: var(--price);
+	font-size: 1.25rem;
+	font-weight: 700;
 }
 
 .btn {
-  padding: 10px 16px;
-  color: #ffffff;
-  font-weight: 600;
-  text-align: center;
-  background: var(--accent);
-  border-radius: 8px;
-  transition: background 0.2s ease;
+	padding: 10px 16px;
+	color: #ffffff;
+	font-weight: 600;
+	text-align: center;
+	background: var(--accent);
+	border-radius: 8px;
+	transition: background 0.2s ease;
 }
 
 .btn:hover {
-  background: var(--accent-hover);
+	background: var(--accent-hover);
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
+	outline: 2px solid var(--foreground);
+	outline-offset: 2px;
 }
 
 /* Tablet: dvije kolone */
 @media (min-width: 640px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
+	.products {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 /* Desktop: tri kolone */
 @media (min-width: 1024px) {
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
+	.products {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
 }
 
 /* ---------- Stranica jednog proizvoda ---------- */
 .product-page {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px 16px 48px;
 }
 
 /* Poništava padding i margin koje h1 ima na početnoj stranici */
 .product-page h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 1.75rem;
-  line-height: 1.2;
+	margin: 0;
+	padding: 0;
+	font-size: 1.75rem;
+	line-height: 1.2;
 }
 
 .back-link {
-  align-self: flex-start;
-  color: var(--muted);
-  font-weight: 600;
-  transition: color 0.2s ease;
+	align-self: flex-start;
+	color: var(--muted);
+	font-weight: 600;
+	transition: color 0.2s ease;
 }
 
 .back-link:hover {
-  color: var(--foreground);
+	color: var(--foreground);
 }
 
 .back-link:focus-visible {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
+	outline: 2px solid var(--foreground);
+	outline-offset: 2px;
 }
 
 /* Galerija i informacije: prvo jedna kolona */
 .product-top {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
 }
 
 /* Sve slike su u 3 kolone, a prva se širi preko cijelog reda */
 .product-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
 }
 
 .product-gallery img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: contain;
-  background: var(--image-bg);
-  border-radius: 12px;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1;
+	object-fit: contain;
+	background: var(--image-bg);
+	border-radius: 12px;
 }
 
 .product-gallery img:first-child {
-  grid-column: 1 / -1;
+	grid-column: 1 / -1;
 }
 
 .product-info {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .product-category {
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+	color: var(--muted);
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
 }
 
 .product-rating {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .product-description {
-  color: var(--muted);
-  line-height: 1.6;
+	color: var(--muted);
+	line-height: 1.6;
 }
 
 .product-price-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
 .product-page .price {
-  color: var(--price);
-  font-size: 2rem;
-  font-weight: 700;
+	color: var(--price);
+	font-size: 2rem;
+	font-weight: 700;
 }
 
 .discount {
-  padding: 4px 10px;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  background: #b91c1c;
-  border-radius: 999px;
+	padding: 4px 10px;
+	color: #ffffff;
+	font-size: 0.9rem;
+	font-weight: 700;
+	background: #b91c1c;
+	border-radius: 999px;
 }
 
 .product-stock {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
 }
 
 .badge {
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: var(--image-bg);
-  border-radius: 999px;
+	padding: 4px 10px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	background: var(--image-bg);
+	border-radius: 999px;
 }
 
 /* Desktop: galerija pored informacija, tekst vertikalno na sredini slike */
 @media (min-width: 1024px) {
-  .product-top {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 40px;
-  }
+	.product-top {
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+		gap: 40px;
+	}
 
-  .product-page h1 {
-    font-size: 2.25rem;
-  }
+	.product-page h1 {
+		font-size: 2.25rem;
+	}
 }
 
 /* Poruka za nepostojeći proizvod: flex-grow je širi kroz cijelu visinu body-ja */
 .not-found {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  text-align: center;
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: center;
+	color: var(--muted);
+	text-align: center;
+}
+
+/* ---------- Forma za dodavanje proizvoda ---------- */
+.register-page {
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto;
+	padding-bottom: 48px;
+}
+
+.register-page .back-link {
+	display: inline-block;
+	margin: 0 16px 8px;
+}
+
+.product-form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0 16px;
+	padding: 20px;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+}
+
+.product-form label {
+	font-weight: 600;
+}
+
+.product-form input,
+.product-form textarea {
+	width: 100%;
+	margin-bottom: 8px;
+	padding: 12px 16px;
+	color: var(--foreground);
+	font: inherit;
+	background: var(--background);
+	border: 1px solid var(--border);
+	border-radius: 8px;
+}
+
+.product-form textarea {
+	resize: vertical;
+}
+
+/* Pomoćni tekst ispod polja: bliže polju, sitniji i prigušen.
+   overflow-wrap prelama dugi link koji nema razmaka */
+.form-hint {
+	margin: -8px 0 8px;
+	color: var(--muted);
+	font-size: 0.85rem;
+	line-height: 1.4;
+	overflow-wrap: anywhere;
+}
+
+/* Poruka o grešci: crveni tekst sa svijetlom pozadinom i lijevom linijom */
+.form-error {
+	margin-bottom: 8px;
+	padding: 10px 14px;
+	color: #b91c1c;
+	font-size: 0.95rem;
+	font-weight: 600;
+	background: #fef2f2;
+	border-left: 4px solid #b91c1c;
+	border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.form-error {
+		color: #fca5a5;
+		background: #2a1414;
+		border-left-color: #f87171;
+	}
+}
+
+.product-form input:focus,
+.product-form textarea:focus {
+	outline: 2px solid var(--accent);
+	outline-offset: 1px;
+}
+
+/* Dodani proizvod: razmak od forme i ista širina kao forma */
+.register-page .product {
+	margin: 24px 16px 0;
+}
+
+/* button ne preuzima font sam od sebe i ima svoj okvir, za razliku od linka */
+.product-form .btn {
+	font: inherit;
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
 }
 
 /* Bez animacije za one koji su je isključili u sistemu */
 @media (prefers-reduced-motion: reduce) {
-  .product,
-  .btn,
-  .back-link {
-    transition: none;
-  }
+	.product,
+	.btn,
+	.back-link,
+	.add-product-btn {
+		transition: none;
+	}
 
-  .product:hover {
-    transform: none;
-  }
+	.product:hover {
+		transform: none;
+	}
 }

@@ -5,7 +5,11 @@ export default async function Home() {
 	const data = await getAllProducts();
 	return (
 		<>
-			<h1>Proizvodi</h1>
+			<a href="/product/register" className="add-product-btn">
+				+ Add New Product
+			</a>
+
+			<h1>Products</h1>
 			<div className="products">
 				{data.products.map((product) => {
 					return <ProductCard key={product.id} product={product} />;

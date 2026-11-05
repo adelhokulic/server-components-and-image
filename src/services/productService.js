@@ -26,3 +26,17 @@ export const searchProductByQuery = async (query) => {
 	);
 	return await response.json();
 };
+
+export const addProduct = async (title, description, price, thumbnail) => {
+	const response = await fetch(`${process.env.PRODUCT_API_URL}products/add`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			title: title,
+			description: description,
+			price: Number(price),
+			thumbnail: thumbnail,
+		}),
+	});
+	return await response.json();
+};

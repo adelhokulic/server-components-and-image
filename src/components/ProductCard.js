@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-
 const ProductCard = ({ product }) => {
 	return (
 		<div className="product">
@@ -14,7 +13,7 @@ const ProductCard = ({ product }) => {
 				height="300"
 			/>
 			<a href={`/product/${product.id}`} className="btn">
-				Pogledaj proizvod
+				View Details
 			</a>
 		</div>
 	);

@@ -42,14 +42,14 @@ const SearchBar = ({ children }) => {
 					type="text"
 					onChange={(e) => setSearchTerm(e.target.value)}
 					className="search-input"
-					placeholder="Unesite stavku za pretragu"
+					placeholder="Type Product Name...."
 				/>
 			</form>
 			{searchTerm.trim() ? (
 				<>
-					<h1>Proizvodi</h1>
+					<h1>Products</h1>
 					{searchResults.length === 0 && !isSearching && (
-						<p className="not-found">Proizvod ne postoji sa tim nazivom</p>
+						<p className="not-found">No product found with that name“</p>
 					)}
 
 					<div className="products">
