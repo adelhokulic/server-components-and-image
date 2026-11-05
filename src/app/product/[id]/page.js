@@ -1,12 +1,13 @@
+import { getProductById } from "@/services/productService";
 import Image from "next/image";
 
 const ProductId = async ({ params }) => {
 	const paramsResponse = await params;
+	const data = await getProductById(paramsResponse.id)
 
-	const apiResponse = await fetch(`https://dummyjson.com/products/${paramsResponse.id}`);
-
-	const data = await apiResponse.json();
-
+	if(!data){
+		return <h1 className="not-found">Ova stranica ne postoji</h1>
+	}
 	return (
 		<main className="product-page">
 			<a href="/" className="back-link">
