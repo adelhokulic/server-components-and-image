@@ -5,16 +5,23 @@ import ProductCard from "./ProductCard";
 
 const SearchBar = ({ children }) => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [timer, setTimer] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);
 	const [isSearching, setIsSearching] = useState(false);
-	const search = async (searchTerm) => {
-		const response = await fetch(
-			"http://localhost:3000/api/search?pretraga=" + searchTerm,
-		);
-		const data = await response.json();
-		setIsSearching(false);
-		setSearchResults(data);
+	const search = async (searchTerm, signal) => {
+		try {
+			const response = await fetch(
+				"http://localhost:3000/api/search?pretraga=" + searchTerm,
+				{ signal },
+			);
+			const data = await response.json();
+			setIsSearching(false);
+			setSearchResults(data);
+		} catch (error) {
+			if (error.name === "AbortError") {
+				return;
+			}
+			console.error(error);
+		}
 	};
 
 	useEffect(() => {
@@ -24,16 +31,15 @@ const SearchBar = ({ children }) => {
 			return;
 		}
 		setIsSearching(true);
-		if (timer) {
-			clearTimeout(timer);
-		}
+
+		const controller = new AbortController();
 		const newTimer = setTimeout(() => {
-			search(searchTerm);
+			search(searchTerm, controller.signal);
 		}, 300);
-
-		setTimer(newTimer);
-
-		return () => clearTimeout(newTimer);
+		return () => {
+			clearTimeout(newTimer);
+			controller.abort();
+		};
 	}, [searchTerm]);
 	return (
 		<>
