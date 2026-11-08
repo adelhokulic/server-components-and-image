@@ -383,11 +383,19 @@ h1 {
 }
 
 /* ---------- Forma za dodavanje proizvoda ---------- */
-.register-page {
+.register-page,
+.login-page {
 	width: 100%;
 	max-width: 640px;
 	margin: 0 auto;
 	padding-bottom: 48px;
+}
+
+/* Login ima samo dva polja, pa je uži.
+   Nema ni linka "nazad" iznad forme, pa mu treba razmak odozgo */
+.login-page {
+	max-width: 440px;
+	padding-top: 48px;
 }
 
 .register-page .back-link {
