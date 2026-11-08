@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import SearchBar from "@/components/searchBar";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -21,7 +20,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
 			<body>
-				<SearchBar children={children} />
+				{children}
 			</body>
 		</html>
 	);

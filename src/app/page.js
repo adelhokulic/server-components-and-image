@@ -1,10 +1,11 @@
 import ProductCard from "@/components/ProductCard";
 import { getAllProducts } from "@/services/productService";
+import SearchBar from "@/components/searchBar";
 
 export default async function Home() {
 	const data = await getAllProducts();
 	return (
-		<>
+		<SearchBar>
 			<a href="/product/register" className="add-product-btn">
 				+ Add New Product
 			</a>
@@ -15,6 +16,6 @@ export default async function Home() {
 					return <ProductCard key={product.id} product={product} />;
 				})}
 			</div>
-		</>
+		</SearchBar>
 	);
 }
